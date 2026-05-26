@@ -1,0 +1,6 @@
+{
+  "name": "Mel Natural Landing Page",
+  "description": "A high-conversion landing page for Mel Natural, a natural products distributor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
