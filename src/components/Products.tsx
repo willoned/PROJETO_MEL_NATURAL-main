@@ -1,100 +1,116 @@
 import React from 'react';
-import { ShoppingBag } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShoppingCart } from 'lucide-react';
 
-// Definimos que este componente agora recebe a função de navegação vinda do App.tsx
 interface ProductsProps {
   onNavigateToCatalog: () => void;
 }
 
 export default function Products({ onNavigateToCatalog }: ProductsProps) {
-  const products = [
+  const featuredProducts = [
     {
-      id: 1,
-      name: 'Mel Natural Puro (500g)',
-      description: 'Nosso carro-chefe. 100% puro e direto do produtor.',
+      name: 'Mel Natural Puro',
+      weight: '500g',
       price: 'R$ 45,00',
-      tag: 'Ouro Líquido',
-      image: 'https://images.unsplash.com/photo-1587049352851-8d4e891347ad?q=80&w=400&auto=format&fit=crop'
+      description: 'Puro, cru e colhido de forma sustentável.',
+      image: 'https://images.unsplash.com/photo-1587049352847-81a56d773c1c?auto=format&fit=crop&q=80&w=600',
     },
     {
-      id: 2,
-      name: 'Mix Fitoterápico',
-      description: 'O poder medicinal das plantas para sua saúde diária.',
-      price: 'R$ 35,90',
-      tag: 'Fitoterápicos',
-      image: 'https://images.unsplash.com/photo-1608528577891-eb05eb20d75a?q=80&w=400&auto=format&fit=crop'
+      name: 'Mel Natural Puro',
+      weight: '1kg',
+      price: 'R$ 70,00',
+      description: 'Nossa versão familiar com o melhor custo-benefício.',
+      image: 'https://images.unsplash.com/photo-1587049352847-81a56d773c1c?auto=format&fit=crop&q=80&w=600',
     },
     {
-      id: 3,
-      name: 'Cosméticos Naturais',
-      description: 'Cremes e loções sem produtos químicos agressivos.',
-      price: 'R$ 55,00',
-      tag: 'Cosméticos',
-      image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=400&auto=format&fit=crop'
-    },
-    {
-      id: 4,
-      name: 'Suplementos em Cápsulas',
-      description: 'Mais energia, foco e imunidade para a sua rotina.',
-      price: 'R$ 89,90',
-      tag: 'Suplementos',
-      image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?q=80&w=400&auto=format&fit=crop'
-    },
-    {
-      id: 5,
-      name: 'Especiarias Selecionadas',
-      description: 'Temperos naturais que dão sabor e saúde à sua comida.',
-      price: 'R$ 15,50',
-      tag: 'Especiarias',
-      image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=400&auto=format&fit=crop'
+      name: 'Sabonete de Aveia',
+      weight: '90g',
+      price: 'R$ 15,00',
+      description: 'Com mel e aveia para uma pele hidratada.',
+      image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=600',
     }
   ];
 
   return (
-    <section id="produtos" className="col-span-1 lg:col-span-4 lg:row-span-4 bg-white rounded-3xl border border-yellow-200 shadow-sm p-6 flex flex-col h-full">
-      <div className="mb-5 shrink-0">
-        <span className="text-[#0A1931] font-bold text-xs uppercase tracking-widest">Catálogo Completo</span>
-        <h2 className="text-2xl font-black text-[#0A1931] mt-1 leading-tight">Destaques da Loja</h2>
-        <p className="text-xs text-gray-500 mt-1">Variedade direto da nossa distribuidora para você.</p>
+    <section className="col-span-1 md:col-span-2 lg:col-span-12 py-12 md:py-20" id="produtos">
+      <div className="text-center mb-12">
+        <motion.h2 
+          // Animação do Título
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-5xl font-black text-[#0A1931] uppercase tracking-tight"
+        >
+          Nossos <span className="text-[#FEDE00] underline decoration-[#0A1931]">Destaques</span>
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-gray-600 mt-4 max-w-2xl mx-auto"
+        >
+          Os produtos mais amados pelos nossos clientes, direto do produtor para a sua mesa.
+        </motion.p>
       </div>
 
-      <div className="flex-1 flex flex-col gap-4 overflow-y-auto pr-2">
-        {products.map((product) => (
-          <div 
-            key={product.id} 
-            onClick={onNavigateToCatalog} // Permite abrir o catálogo ao clicar no produto
-            className="bg-[#f9f9f9] rounded-2xl p-3 flex gap-4 items-center transition-all hover:shadow-md hover:bg-white border border-gray-100 group cursor-pointer"
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredProducts.map((product, index) => (
+          <motion.div 
+            key={index}
+            // AQUI ESTÁ A MÁGICA DA ROLAGEM!
+            initial={{ opacity: 0, y: 50 }} // Começa invisível e mais abaixo
+            whileInView={{ opacity: 1, y: 0 }} // Quando aparece na tela, fica visível e sobe
+            viewport={{ once: true, margin: "-50px" }} // Anima só uma vez, quando o card passar 50px da base da tela
+            transition={{ duration: 0.5, delay: index * 0.2 }} // O "delay" cria o efeito dominó (um após o outro)
+            className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 group flex flex-col h-full"
           >
-            <div className="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-xl overflow-hidden bg-white shadow-sm border border-gray-100 relative">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div className="relative h-64 overflow-hidden bg-gray-100">
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
             </div>
             
-            <div className="flex-1 min-w-0 py-1">
-              <div className="flex items-center gap-2 mb-1">
-                 <span className="text-[9px] font-bold text-[#0A1931] bg-[#FEDE00] px-2 py-0.5 rounded-full uppercase tracking-wider">
-                   {product.tag}
-                 </span>
+            <div className="p-6 flex flex-col flex-grow">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-black text-[#0A1931] text-xl leading-tight">{product.name}</h3>
+                <span className="text-xs font-bold bg-[#FEDE00]/20 text-[#0A1931] px-2 py-1 rounded-lg">
+                  {product.weight}
+                </span>
               </div>
-              <h4 className="font-bold text-[#0A1931] text-[13px] leading-tight mb-1 truncate">{product.name}</h4>
-              <p className="text-[11px] text-gray-500 line-clamp-2 leading-snug">{product.description}</p>
+              <p className="text-gray-500 text-sm mb-6 flex-grow">{product.description}</p>
               
-              <div className="mt-2 flex items-center justify-between">
-                <p className="text-base font-black text-[#0A1931]">{product.price}</p>
+              <div className="flex items-center justify-between mt-auto">
+                <span className="font-black text-2xl text-[#0A1931] tracking-tighter">{product.price}</span>
+                <button 
+                  onClick={onNavigateToCatalog}
+                  className="w-12 h-12 bg-[#0A1931] hover:bg-[#FEDE00] text-white hover:text-[#0A1931] rounded-2xl flex items-center justify-center transition-all group-hover:shadow-lg"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      <div className="mt-5 pt-4 border-t border-gray-100 shrink-0">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="text-center mt-12"
+      >
         <button 
-          onClick={onNavigateToCatalog} // Ativa a mudança de tela ao clicar no botão principal
-          className="w-full py-4 bg-[#0A1931] hover:brightness-110 text-[#FEDE00] font-bold text-sm rounded-2xl flex items-center justify-center gap-2 transition-all uppercase tracking-widest shadow-lg shadow-blue-900/10"
+          onClick={onNavigateToCatalog}
+          className="px-8 py-4 bg-[#FEDE00] hover:bg-yellow-400 text-[#0A1931] font-black uppercase tracking-widest rounded-xl transition-all shadow-md hover:shadow-lg"
         >
-          <ShoppingBag className="w-4 h-4" />
-          Acessar Catálogo Completo
+          Ver Catálogo Completo
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }

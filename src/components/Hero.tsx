@@ -1,65 +1,56 @@
-import { ArrowRight, Hexagon } from 'lucide-react';
-import { motion } from 'motion/react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <section className="relative col-span-1 lg:col-span-8 lg:row-span-3 bg-[#E5E5E5] rounded-3xl p-6 md:p-10 border border-gray-300 shadow-sm overflow-hidden flex flex-col justify-center">
-      <div className="absolute top-0 right-0 w-32 md:w-64 h-32 md:h-64 bg-[#FEDE00] opacity-10 rounded-bl-full pointer-events-none"></div>
+    <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-[#0A1931]">
+      
+      {/* VÍDEO DE FUNDO */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover object-center z-0"
+      >
+        <source src="/floresta-bg.mp4" type="video/mp4" />
+      </video>
 
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+      {/* PELÍCULA ESCURA: Mantém o contraste perfeito */}
+      <div className="absolute inset-0 bg-black/50 z-10"></div>
+
+      {/* CONTEÚDO CENTRALIZADO */}
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 w-full max-w-5xl mx-auto">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-left"
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tight leading-tight mb-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-[#0A1931] border border-gray-200 text-xs font-bold uppercase tracking-wider mb-6">
-            <Hexagon className="w-4 h-4 fill-[#FEDE00] text-[#FEDE00]" />
-            Direto da Natureza
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#0A1931] tracking-tight leading-tight mb-4">
-            Mel Natural: <br/><span className="text-gray-600">Sua Fonte de Saúde</span> <br/>direto de Teresina.
-          </h1>
-          <p className="text-base text-gray-600 mb-8 max-w-md leading-relaxed">
-            A Distribuidora de Produtos Naturais, Fitoterápicos, Cosméticos e Suplementos que traz o melhor da natureza para você e sua família.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#produtos" className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-[#FEDE00] hover:bg-yellow-400 text-[#0A1931] text-sm font-bold uppercase tracking-wider rounded-full shadow-md transition-colors duration-200">
-              Conheça Nossos Produtos
-              <ArrowRight className="w-5 h-5" />
-            </a>
-          </div>
-        </motion.div>
+          A Pureza da <span className="text-[#FEDE00]">Natureza</span> <br/> Direto para Você
+        </motion.h1>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-lg md:text-xl text-white/90 font-medium mb-10 max-w-2xl"
+        >
+          Extratos, ervas e produtos orgânicos colhidos com sabedoria para levar saúde e cuidado à sua rotina.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative h-full min-h-[300px] md:min-h-[400px] flex items-center justify-center"
+          transition={{ delay: 0.6, duration: 0.5 }}
         >
-           <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-xl border-4 border-white">
-             {/* AQUI ESTÁ A MUDANÇA: Puxando a sua imagem local */}
-             <img 
-               src="/destaque.png" 
-               alt="Destaque Mel Natural"
-               className="object-cover w-full h-full"
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-[#0A1931]/60 to-transparent"></div>
-           </div>
-           
-           {/* Floating Badge */}
-           <div className="absolute -bottom-4 -left-4 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4">
-              <div className="bg-[#FEDE00]/20 p-3 rounded-full">
-                <Hexagon className="w-6 h-6 text-[#0A1931] fill-[#FEDE00]" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase text-[#0A1931]">Qualidade Pura</p>
-                <p className="text-[10px] text-gray-500">100% Garantida</p>
-              </div>
-           </div>
+          <a
+            href="#produtos"
+            className="inline-block px-8 py-4 bg-[#FEDE00] hover:bg-yellow-400 text-[#0A1931] font-black uppercase tracking-widest rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+          >
+            Descubra a Mel Natural
+          </a>
         </motion.div>
-
       </div>
     </section>
   );

@@ -1,10 +1,12 @@
 import React from 'react';
+import { User } from 'lucide-react'; // <--- Importamos o ícone do usuário
 
 interface HeaderProps {
   onNavigateToCatalog: () => void;
+  onNavigateToClient: () => void; // <--- Recebemos a função do App.tsx
 }
 
-export default function Header({ onNavigateToCatalog }: HeaderProps) {
+export default function Header({ onNavigateToCatalog, onNavigateToClient }: HeaderProps) {
   return (
     <header className="bg-[#0A1931] border-b-4 border-[#FEDE00] sticky top-0 z-50">
       <div className="w-full px-4 sm:px-6 lg:px-10">
@@ -26,7 +28,6 @@ export default function Header({ onNavigateToCatalog }: HeaderProps) {
              <ul className="flex space-x-8 text-sm font-medium text-white/80">
                <li><a href="#" className="hover:text-[#FEDE00] transition-colors">Início</a></li>
                <li><a href="#sobre" className="hover:text-[#FEDE00] transition-colors">A Loja</a></li>
-               {/* Mudamos de link (a) para botão (button) */}
                <li>
                  <button onClick={onNavigateToCatalog} className="hover:text-[#FEDE00] transition-colors cursor-pointer">
                    Produtos
@@ -38,8 +39,15 @@ export default function Header({ onNavigateToCatalog }: HeaderProps) {
           </nav>
 
           {/* Right Action */}
-          <div className="hidden md:flex items-center">
-             {/* Mudamos de link (a) para botão (button) */}
+          <div className="hidden md:flex items-center gap-4">
+             {/* BOTÃO MINHA CONTA */}
+             <button 
+               onClick={onNavigateToClient}
+               className="flex items-center gap-2 text-white/80 hover:text-[#FEDE00] transition-colors text-sm font-bold uppercase tracking-wider"
+             >
+               <User className="w-5 h-5" /> Minha Conta
+             </button>
+
              <button 
                onClick={onNavigateToCatalog} 
                className="px-5 py-2.5 bg-[#FEDE00] hover:bg-yellow-400 text-[#0A1931] text-sm font-bold rounded-full uppercase tracking-wider shadow-md transition-colors cursor-pointer"

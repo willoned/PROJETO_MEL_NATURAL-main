@@ -1,42 +1,67 @@
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 export default function Testimonials() {
-  const reviews = [
-    {
-      id: 1,
-      name: 'Mariana Alves',
-      role: 'Teresina',
-      text: 'A qualidade do mel da Mel Natural é incomparável! O Kit Imunidade salvou os invernos da minha família. Recomendo sempre!',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150'
-    },
-    {
-      id: 2,
-      name: 'João Pedro',
-      role: 'Atacado',
-      text: 'Excelente atendimento no WhatsApp e entrega rápida. Especiarias frescas e de alta procedência, sempre compro e indico para parceiros.',
-      image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150&h=150'
-    }
+  const testimonials = [
+    { name: 'Ana Costa', role: 'Cliente Fiel', text: 'O melhor mel que já provei! A entrega em Teresina foi super rápida e o atendimento é impecável.', rating: 5 },
+    { name: 'Carlos Mendes', role: 'Proprietário de Restaurante', text: 'Uso o mel natural deles em todas as receitas do meu restaurante. A qualidade e a pureza são garantidas.', rating: 5 },
+    { name: 'Mariana Silva', role: 'Nutricionista', text: 'Sempre indico para meus pacientes. É difícil achar um mel puro de verdade hoje em dia, mas o da Mel Natural é perfeito.', rating: 5 },
   ];
 
   return (
-    <section id="depoimentos" className="col-span-1 lg:col-span-4 lg:row-span-2 bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm flex flex-col h-full">
-      <h5 className="text-[#0A1931] font-bold text-xs uppercase tracking-widest mb-6">O que dizem nossos clientes</h5>
-      
-      <div className="flex flex-col gap-5 flex-1 justify-center">
-        {reviews.map((review, idx) => (
-          <div key={review.id} className={`flex gap-4 items-start ${idx !== 0 ? 'border-t border-gray-100 pt-5' : ''}`}>
-             <img src={review.image} alt={review.name} className="w-10 h-10 rounded-full object-cover shadow-sm" />
-             <div>
-               <div className="flex items-center gap-1 mb-1 text-[#FEDE00]">
-                 {[...Array(5)].map((_, i) => (
-                   <Star key={i} className="w-3 h-3 fill-current" />
-                 ))}
-               </div>
-               <p className="text-[13px] leading-snug italic text-gray-600 font-medium tracking-tight">"{review.text}"</p>
-               <p className="text-[10px] font-bold mt-2 uppercase text-[#0A1931]">— {review.name}, {review.role}</p>
-             </div>
-          </div>
-        ))}
+    <section className="col-span-1 md:col-span-2 lg:col-span-12 py-12 md:py-20" id="depoimentos">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-black text-[#0A1931] uppercase tracking-tight mb-4"
+          >
+            Quem Prova, <span className="text-[#FEDE00]">Aprova</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-gray-600"
+          >
+            A satisfação dos nossos clientes é a nossa maior recompensa. Veja o que dizem sobre nossos produtos.
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          {testimonials.map((testimonial, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 relative"
+            >
+              <div className="flex gap-1 mb-6">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-[#FEDE00] text-[#FEDE00]" />
+                ))}
+              </div>
+              <p className="text-gray-600 mb-8 italic">"{testimonial.text}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#0A1931] rounded-full flex items-center justify-center text-[#FEDE00] font-black text-xl">
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <h4 className="font-black text-[#0A1931]">{testimonial.name}</h4>
+                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">{testimonial.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
